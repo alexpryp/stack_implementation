@@ -1,33 +1,40 @@
 "use strict"
 
-function Stack() {
+function Stack( capacity ) {
+	this._capacity = capacity || Infinity;
 	this._size = 0;
 	this._objact = {};
 }
 
 Stack.prototype.push = function( value ) {
-	var size = ++this._size;
+	if ( this._size < this._capacity ) {
+		this._objact[this._size++] = value;
+		return this._size;
+	}
 
-    this._objact[size] = value;
+	return "Stack is full";
 };
 
 Stack.prototype.pop = function() {
-	var size = this._size;
-	var deletedData;
+	var value = this._objact[--this._size];
 
-		if( size ) {
-			deletedData = this._objact[size];
+	delete this._objact[this._size];
 
-			delete this._objact[size];
-			this._size--;
+	if( this._size < 0 ) {
+		this._size = 0;
+	}
 
-			return deletedData;
-		}
+	return value;
 };
+
+Stack.prototype.topStack = function() {
+	return this._objact[this._size-1];
+}
 
 Stack.prototype.getSize = function() {
 	return this._size;
 };
+
 
 
 
@@ -42,7 +49,7 @@ myStack.push( "d" );
 myStack.push( "e" );
 
 console.log( myStack._size );
-console.log( myStack._objact[myStack._size] );
+console.log( myStack.topStack() );
 
 
 console.log( myStack.pop() );
