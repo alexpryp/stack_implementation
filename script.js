@@ -3,12 +3,12 @@
 function Stack( capacity ) {
 	this._capacity = capacity || Infinity;
 	this._size = 0;
-	this._objact = {};
+	this._object = {};
 }
 
 Stack.prototype.push = function( value ) {
 	if ( this._size < this._capacity ) {
-		this._objact[this._size++] = value;
+		this._object[this._size++] = value;
 		return this._size;
 	}
 
@@ -16,9 +16,9 @@ Stack.prototype.push = function( value ) {
 };
 
 Stack.prototype.pop = function() {
-	var value = this._objact[--this._size];
+	var value = this._object[--this._size];
 
-	delete this._objact[this._size];
+	delete this._object[this._size];
 
 	if( this._size < 0 ) {
 		this._size = 0;
@@ -28,7 +28,7 @@ Stack.prototype.pop = function() {
 };
 
 Stack.prototype.topStack = function() {
-	return this._objact[this._size-1];
+	return this._object[this._size-1];
 }
 
 Stack.prototype.getSize = function() {
